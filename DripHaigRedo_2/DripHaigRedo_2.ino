@@ -99,7 +99,10 @@ void loop (){
     int end1LED = start1LED + str1Length;
     int i;
 
+
+
   for(i = 0; i < 4; i++) {
+      currentMillis = millis();
 
   Serial.print("strandNo: ");
   Serial.println(i);
@@ -112,16 +115,13 @@ void loop (){
   Serial.print("endLED: ");
   Serial.println(endLED);
 
-    for(int j = 0; j < str1Length; j++) {
-      currentMillis = millis();
-//      int currentLED = j;
-
-      int currentLED = strLED[i]+j;
+    for(int j = startLED; j < endLED; j++) {
+      int currentLED = j;
       Serial.print("currentLED: ");
-      Serial.println(currentLED);
+      Serial.println(j);
 
       if(currentMillis - stepTime1 >= delay1) { //turn off LEDs 
-        leds[currentLED].b = 0;
+        leds[currentLED+strLED[i]].b = 0;
         Serial.print("LED: ");
         Serial.print(currentLED);
         Serial.println(" is off.");
@@ -129,17 +129,17 @@ void loop (){
         leds[currentLED].g = 0; 
         leds[currentLED].r = 0;
 
-//       currentLED++;
-
         if(j == str1Length){
           j = 0;
         }
+
+        currentLED++;
 
 // turn on LEDs 
         leds[currentLED].b = 255; 
         Serial.print("LED: ");
         Serial.print(currentLED);
-        Serial.println(" is ON.");
+        Serial.println(" is on.");
         leds[currentLED].g = 255; 
         leds[currentLED].r = 255;
 
